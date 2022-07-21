@@ -4,7 +4,7 @@ function Card(props) {
 
   function handleClick(event) {
     event.currentTarget.classList.toggle('flipped');
-    props.addMove();
+    props.setImgForCompare(props.name);
   }
 
   return (
