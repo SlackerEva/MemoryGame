@@ -2,7 +2,7 @@
   text-align: center;
   background-color: #f4c531;
   min-height: 100vh;
-  /*display: flex;*/
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;

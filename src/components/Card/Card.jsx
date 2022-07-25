@@ -1,16 +1,19 @@
 import './Card.css';
 
 function Card(props) {
+  const {img, name} = props.img;
 
   function handleClick(event) {
-    event.currentTarget.classList.toggle('flipped');
-    props.setImgForCompare(props.name);
+    if (!event.currentTarget.classList.contains('flipped')) {
+      event.currentTarget.classList.add('flipped');
+      props.setImgForCompare(props.img, event.currentTarget);
+    }
   }
 
   return (
     <div className='card-container' onClick={handleClick}>
       <div className='card-container__before'>
-        <img className='card-container__img' src={props.img} alt={props.name} />
+        <img className='card-container__img' src={img} alt={name} />
       </div>
     </div>
   )
