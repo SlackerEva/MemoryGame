@@ -8,44 +8,40 @@ function GameContainer(props) {
   const [randomArrOfImg, setRandomArrOfImg] = useState([]);
   const [firstImg, setFirstImg] = useState('');
   const [secondImg, setSecondImg] = useState('');
-  const [firstEvent, setFirstEvent] = useState();
-  const [secondEvent, setSecondEvent] = useState();
-
-
 
   useEffect(() => {
-    let tempArray = [...ArrayOfImg, ...ArrayOfImg];
-    tempArray.sort(() => Math.random() - 0.5);
+    let tempArray = ArrayOfImg.sort(() => Math.random() - 0.5);
     setRandomArrOfImg(tempArray);
   }, []);
 
-//Can I do this better? Without DOM manipulation?
-
   useEffect(() => {
-    console.log(firstImg, secondImg);
     if (firstImg !== '' && secondImg !== '') {
-      if (firstImg.id !== secondImg.id) {
+      if (firstImg.name !== secondImg.name) {
         setTimeout(function(){
-          firstEvent.classList.remove('flipped');
-          secondEvent.classList.remove('flipped');
+          setRandomArrOfImg([...randomArrOfImg], firstImg.flip = false);
+          setRandomArrOfImg([...randomArrOfImg], secondImg.flip = false);
         }, 1000);
       }
       props.addMove();
       setFirstImg('');
       setSecondImg('');
     }
-  }, [props, firstImg, secondImg]);
+  }, [props, randomArrOfImg, firstImg, secondImg]);
 
-  function setImgForCompare(props, event) {
-    firstImg === '' ? setFirstImg(props) : setSecondImg(props);
-    firstImg === '' ? setFirstEvent(event) : setSecondEvent(event);
+
+
+  function cardClick(id) {
+    const imgObj = randomArrOfImg.find(obj => obj.id === id);
+    if (imgObj.flip !== true) {
+      imgObj.flip = true;
+      firstImg === '' ? setFirstImg(imgObj) : setSecondImg(imgObj);
+    }
   }
-  
 
   return (
     <div className='game-grid'>
       {randomArrOfImg.map((img, index) => {
-        return <Card key={index} img ={img} addMove={props.addMove} setImgForCompare={setImgForCompare} />
+        return <Card key={index} img={img} cardClick={cardClick} />
       })}
     </div>
   )
