@@ -1,50 +1,28 @@
-import './Game-container.css'; 
-import Card from '../Card/Card';
-import ArrayOfImg from '../../utils/arrayOfImg';
-import { useState, useEffect } from 'react';
+import Stats from '../Stats/Stats';
+import GameGrid from '../Game-grid/Game-grid';
+import { useState } from 'react';
 
-function GameContainer(props) {
+function GameContainer() {
+  const [movesCount, setMovesCount] = useState(0);
+  const [startGame, setStartGame] = useState(true);
 
-  const [randomArrOfImg, setRandomArrOfImg] = useState([]);
-  const [firstImg, setFirstImg] = useState('');
-  const [secondImg, setSecondImg] = useState('');
-
-  useEffect(() => {
-    let tempArray = ArrayOfImg.sort(() => Math.random() - 0.5);
-    setRandomArrOfImg(tempArray);
-  }, []);
-
-  useEffect(() => {
-    if (firstImg !== '' && secondImg !== '') {
-      if (firstImg.name !== secondImg.name) {
-        setTimeout(function(){
-          setRandomArrOfImg([...randomArrOfImg], firstImg.flip = false);
-          setRandomArrOfImg([...randomArrOfImg], secondImg.flip = false);
-        }, 1000);
-      }
-      props.addMove();
-      setFirstImg('');
-      setSecondImg('');
-    }
-  }, [props, randomArrOfImg, firstImg, secondImg]);
-
-
-
-  function cardClick(id) {
-    const imgObj = randomArrOfImg.find(obj => obj.id === id);
-    if (imgObj.flip !== true) {
-      imgObj.flip = true;
-      firstImg === '' ? setFirstImg(imgObj) : setSecondImg(imgObj);
-    }
+  function addMove() {
+    setMovesCount(movesCount + 1);
   }
 
-  return (
-    <div className='game-grid'>
-      {randomArrOfImg.map((img, index) => {
-        return <Card key={index} img={img} cardClick={cardClick} />
-      })}
-    </div>
-  )
+  if (startGame) {
+    return (
+        <button className='button-reset_hide' onClick={() => setStartGame(false)}>Start Game</button>
+    )
+  } else {
+    return (
+      <div>
+        <Stats movesCount={movesCount} />
+        <GameGrid addMove={addMove} />
+        <button className='button-reset_hide' onClick={() => setStartGame(true)}>Reset Game</button>
+      </div>
+    )
+  }
 }
 
 export default GameContainer;

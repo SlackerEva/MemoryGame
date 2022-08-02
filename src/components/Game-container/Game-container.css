@@ -1,7 +1,0 @@
-.game-grid {
-  padding: 50px;
-  display: grid;
-  grid-template-columns: repeat(4, 280px);
-  gap: 50px;
-  grid-template-rows: repeat(2, 300px);
-}
