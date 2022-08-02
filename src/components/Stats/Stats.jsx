@@ -21,7 +21,7 @@ function Stats(props) {
 
   return (
     <div className='stats-container'>
-      <div className='stats-container__moves'>Moves count: {props.movesCount}</div>
+      <div className='stats-container__moves'>Moves count: {props.movesCount}{props.countVictory}</div>
       <div className='stats-container__time'>Time: {minutes + ' m.'+ ' : ' + seconds + ' s.'}</div>
     </div>
   )

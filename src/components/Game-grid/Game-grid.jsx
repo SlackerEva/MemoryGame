@@ -21,6 +21,8 @@ function GameGrid(props) {
           setRandomArrOfImg([...randomArrOfImg], firstImg.flip = false);
           setRandomArrOfImg([...randomArrOfImg], secondImg.flip = false);
         }, 1000);
+      } else {
+        victory();
       }
       props.addMove();
       setFirstImg('');
@@ -35,6 +37,14 @@ function GameGrid(props) {
     if (imgObj.flip !== true) {
       imgObj.flip = true;
       firstImg === '' ? setFirstImg(imgObj) : setSecondImg(imgObj);
+    }
+  }
+
+  function victory() {
+    if (randomArrOfImg.every(obj => obj.flip === true)) {
+      setTimeout(function(){
+        alert('You are win!');
+      }, 1000);
     }
   }
 
